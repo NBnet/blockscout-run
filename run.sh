@@ -31,6 +31,10 @@ array_visualize=(${visualize_host//:/ })
 visualize_port=$(echo ${array_visualize[2]} | sed 's/\///g')
 visualize_host=$(echo ${visualize_host} | sed 's/\//\\\//g')
 
+echo 'please input chain name'
+printf '\teg: ZK chain\n'
+read chain_name
+
 echo 'please input web3 rpc url'
 printf '\teg: http://172.17.0.1:8545\n'
 read web3_rpc_url
@@ -58,6 +62,10 @@ perl -pi -e "s/^(NEXT_PUBLIC_APP_HOST=).*/NEXT_PUBLIC_APP_HOST=${api_host}/" $fi
 perl -pi -e "s/^(NEXT_PUBLIC_APP_PROTOCOL=).*/NEXT_PUBLIC_APP_PROTOCOL=${api_protocol}/" $file
 
 perl -pi -e "s/^(NEXT_PUBLIC_VISUALIZE_API_HOST=).*/NEXT_PUBLIC_VISUALIZE_API_HOST=${visualize_host}/" $file
+
+perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_NAME=).*/NEXT_PUBLIC_NETWORK_NAME=${chain_name}/" $file
+
+perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_SHORT_NAME=).*/NEXT_PUBLIC_NETWORK_SHORT_NAME=${chain_name}/" $file
 
 perl -pi -e "s/40080/${api_port}/" $nginx_compose
 
