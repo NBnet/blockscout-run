@@ -32,7 +32,7 @@ visualize_port=$(echo ${array_visualize[2]} | sed 's/\///g')
 visualize_host=$(echo ${visualize_host} | sed 's/\//\\\//g')
 
 echo 'please input chain name'
-printf '\teg: ZK chain\n'
+printf '\teg: ZK\n'
 read chain_name
 
 echo 'please input web3 rpc url'
@@ -63,9 +63,13 @@ perl -pi -e "s/^(NEXT_PUBLIC_APP_PROTOCOL=).*/NEXT_PUBLIC_APP_PROTOCOL=${api_pro
 
 perl -pi -e "s/^(NEXT_PUBLIC_VISUALIZE_API_HOST=).*/NEXT_PUBLIC_VISUALIZE_API_HOST=${visualize_host}/" $file
 
-perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_NAME=).*/NEXT_PUBLIC_NETWORK_NAME=${chain_name}/" $file
+perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_NAME=).*/NEXT_PUBLIC_NETWORK_NAME=${chain_name} chain/" $file
 
-perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_SHORT_NAME=).*/NEXT_PUBLIC_NETWORK_SHORT_NAME=${chain_name}/" $file
+perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_SHORT_NAME=).*/NEXT_PUBLIC_NETWORK_SHORT_NAME=${chain_name} chain/" $file
+
+perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_CURRENCY_NAME=).*/NEXT_PUBLIC_NETWORK_CURRENCY_NAME=${chain_name}token/" $file
+
+perl -pi -e "s/^(NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=).*/NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=${chain_name}/" $file
 
 perl -pi -e "s/40080/${api_port}/" $nginx_compose
 
