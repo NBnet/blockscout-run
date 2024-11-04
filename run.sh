@@ -12,6 +12,9 @@ api_host=$(echo ${array_api[1]} | sed 's/\///g')
 
 array_api1=(${api_host1//:/ })
 api_port=$(echo ${array_api1[2]} | sed 's/\///g')
+if [ ! $api_port ]; then
+ api_port=80
+fi
 
 echo 'please input stats host'
 printf '\teg: http://127.0.0.1:48080\n'
@@ -21,6 +24,9 @@ stats_host=$(echo $stats_host | awk '$1=$1')
 array_stats=(${stats_host//:/ })
 stats_port=$(echo ${array_stats[2]} | sed 's/\///g')
 stats_host=$(echo ${stats_host} | sed 's/\//\\\//g')
+if [ ! $stats_port ]; then
+ stats_port=8080
+fi
 
 echo 'please input visualize host'
 printf '\teg: http://127.0.0.1:48081\n'
@@ -30,6 +36,9 @@ visualize_host=$(echo $visualize_host | awk '$1=$1')
 array_visualize=(${visualize_host//:/ })
 visualize_port=$(echo ${array_visualize[2]} | sed 's/\///g')
 visualize_host=$(echo ${visualize_host} | sed 's/\//\\\//g')
+if [ ! $visualize_port ]; then
+ visualize_port=8081
+fi
 
 echo 'please input chain name'
 printf '\teg: ZK\n'
