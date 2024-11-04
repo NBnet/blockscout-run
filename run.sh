@@ -79,11 +79,11 @@ perl -pi -e "s/48081/${visualize_port}/" $nginx_compose
 
 perl -pi -e "s/^(        ETHEREUM_JSONRPC_HTTP_URL: ).*/        ETHEREUM_JSONRPC_HTTP_URL: \"${web3_rpc_url}\"/" $docker_compose
 
-perl -pi -e "s/ETHEREUM_JSONRPC_TRACE_URL/#ETHEREUM_JSONRPC_TRACE_URL/g" $docker_compose
+perl -pi -e "s/^(        ETHEREUM_JSONRPC_TRACE_URL: ).*/        ETHEREUM_JSONRPC_TRACE_URL: \"${web3_rpc_url}\"/" $docker_compose
 
 perl -pi -e "s/ETHEREUM_JSONRPC_WS_URL/#ETHEREUM_JSONRPC_WS_URL/g" $docker_compose
 
-perl -pi -e "s/^(       CHAIN_ID: ).*/         CHAIN_ID: \"${CHAIN_ID}\"/" $docker_compose
+perl -pi -e "s/^(        CHAIN_ID: ).*/        CHAIN_ID: \"${CHAIN_ID}\"/" $docker_compose
 
 perl -pi -e "s/^(      NEXT_PUBLIC_NETWORK_ID: ).*/      NEXT_PUBLIC_NETWORK_ID: \"${CHAIN_ID}\"/" $docker_compose
 
