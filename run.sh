@@ -58,6 +58,10 @@ nginx_compose='docker-compose/services/nginx.yml'
 set -xe
 CHAIN_ID=$(cast chain-id --rpc-url "${web3_rpc_url}")
 
+if [ $api_protocol == 'https' ]; then 
+    perl -pi -e "s/^(NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL=).*/NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL=wss/" $file
+fi
+
 perl -pi -e "s/^(NEXT_PUBLIC_API_HOST=).*/NEXT_PUBLIC_API_HOST=${api_host}/" $file
 
 perl -pi -e "s/^(NEXT_PUBLIC_API_PROTOCOL=).*/NEXT_PUBLIC_API_PROTOCOL=${api_protocol}/" $file
